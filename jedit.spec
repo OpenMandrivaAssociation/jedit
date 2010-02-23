@@ -26,7 +26,7 @@ BuildRequires:  ant-nodeps
 # to build the docs-html target
 BuildRequires:  docbook-dtd44-xml
 BuildRequires:  docbook-style-xsl
-
+BuildRequires:  xsltproc 
 Requires:       java >= 1.5
 
 %description

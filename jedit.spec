@@ -38,6 +38,29 @@ search and replace, and much more.
 jEdit is extremely customizable, and extensible, using either macros
 written in the BeanShell scripting language, or plugins written in Java.
 
+%files
+%attr(755,root,root) %{_bindir}/%{name}
+%defattr(-,root,root,-)
+%{_datadir}/%{name}/%{version}/*
+%{_mandir}/man1/jedit.1*
+%{_datadir}/pixmaps/%{name}.png
+%{_desktopdir}/%{name}.desktop
+
+#--------------------------------------------------------------------
+
+%package javadoc
+Summary: Javadoc for jEdit
+Group: Development/Java
+
+%description javadoc
+Javadoc for jEdit.
+
+%files javadoc
+%defattr(-,root,root,-)
+%_javadocdir/*
+
+#--------------------------------------------------------------------
+
 %prep
 %setup -q -n jEdit
 %patch0 -p1
@@ -45,31 +68,55 @@ written in the BeanShell scripting language, or plugins written in Java.
 
 %build
 export CLASSPATH="."
-%ant build dist-java
+%ant build userdocs
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-# Automatic mode
-cd dist
-java -jar %{name}%{version}install.jar auto $RPM_BUILD_ROOT%{_datadir}/%{name}/%{version} unix-script=. unix-man=$RPM_BUILD_ROOT%{_mandir}/man1/
-cd ..
+# javadoc
+%__install -dm 755 %{buildroot}%{_javadocdir}/%{name}-%{version}
+mv  build/doc/api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
+ln -s %{name}-%{version} %{buildroot}%_javadocdir/%{name}
 
-%__install -d $RPM_BUILD_ROOT%{_bindir}
+%__install -dm 755 %{buildroot}%{_datadir}/%{name}/%{version}/
+# some cleanin'
+rm -rf build/classes/
+# install
+cp -r build/* %{buildroot}%{_datadir}/%{name}/%{version}/
 
-cat > $RPM_BUILD_ROOT%{_bindir}/%{name} <<EOF
+# script
+%__install -dm 755 %{buildroot}%{_bindir}
+cat > %{buildroot}%{_bindir}/%{name} <<EOF
 #!/bin/sh
 
 java -jar %{_datadir}/%{name}/%{version}/jedit.jar
 
 EOF
 
+# icons
+%__install -dm 755 %{buildroot}%{_datadir}/pixmaps
+%__install -m 644 icons/%{name}-icon48.png 
+%{buildroot}%{_datadir}/pixmaps/%{name}.png
+
+# desktopfile
+%__install -dm 755 %{buildroot}%{_desktopdir}
+cat > %{buildroot}%{_desktopdir}/%{name}.desktop << EOF
+[Desktop Entry]
+Name=jEdit Text Editor
+Comment=Edit text files
+GenericName=Text Editor
+Exec=%{name}
+Icon=%{name}
+Terminal=false
+Type=Application
+Categories=Development;TextEditor;
+EOF
+
+# manpage
+%__install -dm 755 %{buildroot}%{_mandir}/man1/
+%__install -m 644 package-files/linux/%{name}.1 
+%{buildroot}%{_mandir}/man1/
+
 %clean
-rm -rf $RPM_BUILD_ROOT
-
-%files
-
-%attr(755,root,root) %{_bindir}/%{name}
-%{_datadir}/%{name}/%{version}/*
-%{_mandir}/man1/jedit.1*
+rm -rf %{buildroot}
 

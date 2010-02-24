@@ -95,8 +95,7 @@ EOF
 
 # icons
 %__install -dm 755 %{buildroot}%{_datadir}/pixmaps
-%__install -m 644 icons/%{name}-icon48.png 
-%{buildroot}%{_datadir}/pixmaps/%{name}.png
+%__install -m 644 icons/%{name}-icon48.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 # desktopfile
 %__install -dm 755 %{buildroot}%{_desktopdir}
@@ -114,8 +113,7 @@ EOF
 
 # manpage
 %__install -dm 755 %{buildroot}%{_mandir}/man1/
-%__install -m 644 package-files/linux/%{name}.1 
-%{buildroot}%{_mandir}/man1/
+%__install -m 644 package-files/linux/%{name}.1 %{buildroot}%{_mandir}/man1/
 
 %clean
 rm -rf %{buildroot}

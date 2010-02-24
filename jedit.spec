@@ -1,6 +1,6 @@
 %define name    jedit
 %define version 4.3.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 Name:           %{name}
 Version:        %{version}

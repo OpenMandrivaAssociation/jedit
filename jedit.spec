@@ -40,6 +40,7 @@ written in the BeanShell scripting language, or plugins written in Java.
 
 %files
 %attr(755,root,root) %{_bindir}/%{name}
+%attr(755,root,root) %{_bindir}/%{name}-server
 %defattr(-,root,root,-)
 %{_datadir}/%{name}/%{version}/*
 %{_mandir}/man1/jedit.1*
@@ -88,9 +89,13 @@ cp -r build/* %{buildroot}%{_datadir}/%{name}/%{version}/
 %__install -dm 755 %{buildroot}%{_bindir}
 cat > %{buildroot}%{_bindir}/%{name} <<EOF
 #!/bin/sh
-
 java -jar %{_datadir}/%{name}/%{version}/jedit.jar
+EOF
 
+# script server
+cat > %{buildroot}%{_bindir}/%{name}-server <<EOF
+#!/bin/sh
+jedit -nogui -background
 EOF
 
 # icons
@@ -104,7 +109,7 @@ cat > %{buildroot}%{_desktopdir}/%{name}.desktop << EOF
 Name=jEdit Text Editor
 Comment=Edit text files
 GenericName=Text Editor
-Exec=%{name}
+Exec=%{name} %U
 Icon=%{name}
 Terminal=false
 Type=Application

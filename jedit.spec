@@ -1,5 +1,5 @@
 %define name    jedit
-%define version 4.3.1
+%define version 4.3.2
 %define release %mkrel 2
 
 Name:           %{name}
@@ -89,7 +89,7 @@ cp -r build/* %{buildroot}%{_datadir}/%{name}/%{version}/
 %__install -dm 755 %{buildroot}%{_bindir}
 cat > %{buildroot}%{_bindir}/%{name} <<EOF
 #!/bin/sh
-java -jar %{_datadir}/%{name}/%{version}/jedit.jar
+java -jar %{_datadir}/%{name}/%{version}/jedit.jar \$@
 EOF
 
 # script server

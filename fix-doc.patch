@@ -1,0 +1,15 @@
+--- build.xml
++++ build.xml	2010-02-10 14:16:22.000000000 +0100
+@@ -58,6 +58,12 @@
+ 			  value="true" />
+ 	<property name="config.build.compilerarg"
+ 			  value="-Xlint:unchecked" />
++	<property name="config.docbook.xsl"
++			  value="/usr/share/sgml/docbook/xsl-stylesheets" />
++	<property name="config.docbook.catalog"
++			  value="/etc/sgml/xml-docbook-4.4.cat" />
++	<property name="config.xsltproc.executable"
++			  value="/usr/bin/xsltproc" />
+ 
+ 	<!-- Cygwin detection (xsltproc needs special arguments) -->
+ 	<dirname property="xsltproc.dir" file="${config.xsltproc.executable}" />

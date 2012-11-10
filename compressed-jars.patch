@@ -1,0 +1,22 @@
+Index: jEdit/build.xml
+===================================================================
+--- jEdit/build.xml
++++ jEdit/build.xml	2010-02-10 04:09:39.000000000 +0100
+@@ -264,7 +264,7 @@
+ 		<mkdir dir="${jar.location}" />
+ 		<jar destfile="${jar.location}/${jar.filename}"
+ 			 basedir="${classes.dir}/core"
+-			 compress="false"
++			 compress="true"
+ 			 manifest="org/gjt/sp/jedit/jedit.manifest"
+ 			 duplicate="fail"
+ 			 index="true">
+@@ -295,7 +295,7 @@
+ 			description="build the textArea JAR-file with full debug-information">
+ 		<mkdir dir="${jar.location}" />
+ 		<jar destfile="${jar.location}/${ant.project.name}-textArea.jar"
+-			compress="false"
++			compress="true"
+ 			duplicate="fail"
+ 			index="true">
+ 			<fileset dir="${textAreaPackage}/build/" />

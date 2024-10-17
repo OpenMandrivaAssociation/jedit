@@ -7,7 +7,7 @@ Version:        %{version}
 Release:        %{release}
 
 Summary:        Programmer's Text Editor Written in Java
-URL:            http://www.jedit.org
+URL:            https://www.jedit.org
 Group:          Editors
 
 Source0:        %{name}%{version}source.tar.bz2
